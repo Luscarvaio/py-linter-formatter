@@ -1,4 +1,30 @@
-def format_linter_error(error: dict) -> dict:
+from typing import TypedDict, List
+
+
+class ErrorDict(TypedDict):
+    code: str
+    filename: str
+    line_number: int
+    column_number: int
+    text: str
+    physical_line: str
+
+
+class FormattedError(TypedDict):
+    line: int
+    column: int
+    message: str
+    name: str
+    source: str
+
+
+class FormattedFile(TypedDict):
+    errors: List[FormattedError]
+    path: str
+    status: str
+
+
+def format_linter_error(error: ErrorDict) -> FormattedError:
     return {
         "line": error["line_number"],
         "column": error["column_number"],
